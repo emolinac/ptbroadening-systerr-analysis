@@ -40,28 +40,16 @@ const double shift_x_zh[N_targets]  = { -0.015 , 0 , 0.015 , -0.015 , 0 , 0.015 
 const double shift_x_a13[4] = { -0.075 , -0.025 , 0.025 , 0.075 };
 
 // Analysis
-// Integrations of ZH starts at Zh = 0.2
+// Integrations of Zh at 0.2
 const int Zh_cutoff = 2;
 
 // Systematic Errors settings
 const int total_syst      = 10;
 const int syst_variations = 2;
 
-//std::unordered_map<int, const char*> syst_map;
-//syst_map[0] = "absdeltaz";
-//syst_map[1] = "accminlim";
-//syst_map[2] = "ct";
-//syst_map[3] = "naccept";
-//syst_map[4] = "npt2";
-//syst_map[5] = "rad";
-//syst_map[6] = "sectorpi";
-//syst_map[7] = "bgreduction";
-//syst_map[8] = "tof";
-//syst_map[9] = "vc";
-
 // Name templates
-const char* meanpt2_file_template    = "results-meanpt2-";
-const char* broadening_file_template = "results-broadening-";
-const char* extension                = ".root";
-
+std::string meanpt2_file_template    = "results-meanpt2-";
+std::string broadening_file_template = "results-broadening-";
+std::string extension                = ".root";
+std::string input_dir                = "/home/esteban/work/ptbroadening-systerr-analysis/input-files/";
 #endif /* CONSTANTS_H */
