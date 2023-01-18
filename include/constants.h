@@ -22,8 +22,8 @@ const int N_broadening = 3;
 
 const double A13[N_targets] = { pow(2,1./3.) , pow(2,1./3.) , pow(2,1./3.) , pow(12,1./3.) , pow(55, 1./3.) , pow(208,1./3.) };
 
-TString targets[N_targets]               = { "DC" , "DFe" , "DPb" , "C" , "Fe" , "Pb" };
-TString broadening_targets[N_broadening] = { "C" , "Fe" , "Pb" };
+std::string targets[N_targets]               = { "DC" , "DFe" , "DPb" , "C" , "Fe" , "Pb" };
+std::string broadening_targets[N_broadening] = { "C" , "Fe" , "Pb" };
 
 
 // Visual Settings

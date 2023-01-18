@@ -26,3 +26,30 @@ int first_empty_bin(TH1F* h)
 
     return -1;
 }
+
+// Sets the deviation-from-nominal histogram
+void set_deviation_histo(TH1F* h_deviation, TH1F* h_nominal, TH1F* h_variation)
+{
+    h_deviation->Add(h_nominal,h_variation,1,-1);
+    h_deviation->Divide(h_nominal);
+
+    return;
+}
+
+// Sets a histogram with the systematic error values
+void set_systerr_histo(TH1F* h_syst, TH1F* h_variation_a, TH1F* h_variation_b)
+{
+    for(int bin = 1 ; bin <= h_syst->GetNbinsX() ; bin++)
+    {
+        double dev_a = h_variation_a->GetBinContent(bin);
+        double dev_b = h_variation_b->GetBinContent(bin);
+    
+        // Select the maximum deviation
+        double max_dev = TMath::Max(TMath::Abs(dev_a),TMath::Abs(dev_b));
+    
+        // Calculate the syst error and assign to the histos
+        h_syst->SetBinContent(bin, max_dev/TMath::Sqrt(3.));
+    }
+
+    return;
+}

@@ -1,15 +1,17 @@
 #include <iostream>
+#include <string>
 #include "TSystem.h"
 #include "TFile.h"
 #include "TH1F.h"
+#include "TMath.h"
 #include "constants.h"
+#include "utils.h"
+
+// Reminder 1: c_str() returns a pointer to an array filled with the characters of the string specified.
 
 int main(int argc, char* argv[])
 {
     std::string syst[10] = {"absdeltaz", "accminlim", "ct", "naccept", "npt2", "rad", "sectorpi", "bgreduction", "tof", "vc"};
-
-    // Create output file
-    TFile* fout = new TFile();
 
     // Open file that contains nominal results
     TFile* fin = new TFile("../input-files/results-meanpt2-nominal.root");
@@ -28,9 +30,17 @@ int main(int argc, char* argv[])
         }
     }
 
-    // Declarate the array of systematics files
-    TFile* fin_syst[syst_index.size()][syst_variations];
-    for(int index = 0 ; index < syst_index.size() ; index++)
+    // Store the number systematic sources found
+    const int syst_index_size = syst_index.size();
+    if(syst_index_size==0){std::cout<<"There are no sources of systematic errors! Exiting."<<std::endl; return 0;}
+
+    // Create output file
+    TFile* fout = new TFile("../output-files/results-meanpt2-systerr.root","RECREATE");
+    gROOT->cd();
+
+    // Declare the array of systematics files
+    TFile* fin_syst[syst_index_size][syst_variations];
+    for(int index = 0 ; index < syst_index_size ; index++)
     {
         // Declare names so ROOT can open the files
         std::string file_name_a = input_dir+meanpt2_file_template+syst[syst_index[index]]+"-a"+extension;
@@ -44,60 +54,61 @@ int main(int argc, char* argv[])
     // Nominal histo
     TH1F* h_meanpt2_nominal[N_targets];
     // Systematic histos
-    TH1F* h_meanpt2_syst[syst_index.size()][syst_variations][N_targets];
+    TH1F* h_meanpt2_syst[syst_index_size][syst_variations][N_targets];
     // Deviation histos
-    TH1F* h_meanpt2_devs[syst_index.size()][syst_variations][N_targets];
+    TH1F* h_meanpt2_devs[syst_index_size][syst_variations][N_targets];
     // Syst Error histos
-    TH1F* h_meanpt2_systerr[syst_index.size()][N_targets];
+    TH1F* h_meanpt2_systerr[syst_index_size][N_targets];
 
     // WARNING : CHANGE THESE NAMES ON WHEN YOU FINALLY TRANSLATE TO THIS FRAMEWORK!!!!!
     // Assign nominal histos
     for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
     {
-        h_meanpt2_nominal[targ_index] = (TH1F*)fin->Get("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED");
+        h_meanpt2_nominal[targ_index] = (TH1F*)fin->Get(("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
     }
+    
     // Assign the constructor to the rest of histos
-    for(int systsource_index = 0 ; systsource_index < syst_index.size() ; systsource_index++)
+    for(int systsource_index = 0 ; systsource_index < syst_index_size ; systsource_index++)
     {
         for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
         {
             h_meanpt2_systerr[systsource_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                h_meanpt2_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED");
+                h_meanpt2_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
                 h_meanpt2_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
             }
         }
     }
 
     // Loop through systematics and the respective variations
-    for(int systsource_index = 0 ; systsource_index < syst_index.size() ; systsource_index++)
+    for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
     {
-        for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
+        for(int systsource_index = 0 ; systsource_index < syst_index_size ; systsource_index++)
         {
-            for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
+            for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                // Calculate deviations
-                h_meanpt2_devs[systsource_index][systvar_index][targ_index]->Add(h_meanpt2_nominal[targ_index],h_meanpt2_syst[systsource_index][systvar_index][targ_index],1,-1);
-                h_meanpt2_devs[systsource_index][systvar_index][targ_index]->Divide(h_meanpt2_nominal[targ_index]);
-
+                // Calculate deviations and set them in a histogram
+                set_deviation_histo(h_meanpt2_devs[systsource_index][systvar_index][targ_index], h_meanpt2_nominal[targ_index], h_meanpt2_syst[systsource_index][systvar_index][targ_index]);
+                
                 // Store
                 fout->cd();
-                fout->Write();
+                h_meanpt2_devs[systsource_index][systvar_index][targ_index]->Write(("dev_meanPt2_Zh_"+syst[systsource_index]+"_"+std::to_string(systvar_index)+"_"+targets[targ_index]).c_str());
                 gROOT->cd();
             }
+
+            // Calculate the systematic errors and set them in a histogram
+            set_systerr_histo(h_meanpt2_systerr[systsource_index][targ_index], h_meanpt2_devs[systsource_index][0][targ_index], h_meanpt2_devs[systsource_index][1][targ_index]);
+            
+            // Store
+            fout->cd();
+            h_meanpt2_systerr[systsource_index][targ_index]->Write(("systerr_meanPt2_Zh_"+syst[systsource_index]+"_"+targets[targ_index]).c_str());
+            gROOT->cd();
         }
     }
 
-    // Subtract nominal from systematics and assign to deviation histos
-        // Stor deviation histos
-    
-    // Loop through bins of zh
-        // Select the highest deviation
-        // Calculate the systematic error
-            // Assign error to systematic error histogram
-        // Add in quadrature to statistical errors
-    // Store systematic error histo
+    fout->Close();
+    delete fout;
 
     return 0;
 }
