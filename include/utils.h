@@ -28,6 +28,7 @@ int first_empty_bin(TH1F* h)
 }
 
 // Sets the deviation-from-nominal histogram
+// Convention : 100% is 1
 void set_deviation_histo(TH1F* h_deviation, TH1F* h_nominal, TH1F* h_variation)
 {
     h_deviation->Add(h_nominal,h_variation,1,-1);
@@ -37,6 +38,7 @@ void set_deviation_histo(TH1F* h_deviation, TH1F* h_nominal, TH1F* h_variation)
 }
 
 // Sets a histogram with the systematic error values
+// Convention : 100% is 1
 void set_systerr_histo(TH1F* h_syst, TH1F* h_variation_a, TH1F* h_variation_b)
 {
     for(int bin = 1 ; bin <= h_syst->GetNbinsX() ; bin++)

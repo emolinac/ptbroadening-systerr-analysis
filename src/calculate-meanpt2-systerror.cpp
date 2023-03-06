@@ -64,7 +64,8 @@ int main(int argc, char* argv[])
     // Assign nominal histos
     for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
     {
-        h_meanpt2_nominal[targ_index] = (TH1F*)fin->Get(("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
+        h_meanpt2_nominal[targ_index] = (TH1F*)fin->Get(("meanPt2_Zh_"+targets[targ_index]).c_str());
+        if(h_meanpt2_nominal[targ_index]==NULL){std::cout<<"Nominal Null"<<std::endl; return 0;}
     }
     
     // Assign the constructor to the rest of histos
@@ -75,8 +76,10 @@ int main(int argc, char* argv[])
             h_meanpt2_systerr[systsource_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                h_meanpt2_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("meanPt2_"+targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
+                h_meanpt2_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("meanPt2_Zh_"+targets[targ_index]).c_str());
                 h_meanpt2_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
+
+                if(h_meanpt2_syst[systsource_index][systvar_index][targ_index]==NULL){std::cout<<"Syst Null"<<std::endl; return 0;}
             }
         }
     }

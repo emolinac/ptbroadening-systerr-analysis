@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
     // Assign nominal histos
     for(int targ_index = 0 ; targ_index < N_broadening ; targ_index++)
     {
-        h_broadening_nominal[targ_index] = (TH1F*)fin->Get(("broadening_"+broadening_targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
+        h_broadening_nominal[targ_index] = (TH1F*)fin->Get(("broadening_Zh_"+broadening_targets[targ_index]).c_str());
     }
     
     // Assign the constructor to the rest of histos
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
             h_broadening_systerr[systsource_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                h_broadening_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("broadening_"+broadening_targets[targ_index]+"_CLEAN_INTERPOLATED").c_str());
+                h_broadening_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("broadening_Zh_"+broadening_targets[targ_index]).c_str());
                 h_broadening_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
             }
         }
