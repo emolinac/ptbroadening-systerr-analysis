@@ -11,8 +11,6 @@
 
 int main(int argc, char* argv[])
 {
-    std::string syst[10] = {"absdeltaz", "accminlim", "ct", "naccept", "npt2", "rad", "sectorpi", "bgreduction", "tof", "vc"};
-
     // Open file that contains nominal results
     TFile* fin = new TFile("../input-files/results-broadening-nominal.root");
     if(fin==NULL){std::cout<<"Nominal file does not exist!"<<std::endl; return 0;}

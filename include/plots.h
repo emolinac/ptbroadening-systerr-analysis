@@ -67,6 +67,21 @@ void set_xerr_null(TGraphErrors* g, int Npoints = N_Zh)
     }
 }
 
+void set_yerr_null(TGraphErrors* g, int Npoints = N_Zh)
+{
+    // Fail-safe
+    if(g==NULL){std::cout<<"No TGraphErrors passed!"<<std::endl; return;}
+
+    // Obtain errors in X
+    double* errors_X = g->GetEX();
+
+    // Set errors of Y to zero
+    for(int point = 0 ; point < Npoints ; point++)
+    {
+        g->SetPointError(point,errors_X[point],0);  
+    }
+}
+
 void shift_x(TGraphErrors* g, double shift, int Npoints = N_Zh)
 {
     // Fail-safe
@@ -371,4 +386,49 @@ void set_broadening_zh_multigraph_properties(TMultiGraph* mg)
     mg->GetYaxis()->SetTitle("#Delta P^{2}_{T} (GeV^{2})");
     mg->GetYaxis()->CenterTitle();
     mg->GetYaxis()->SetTitleOffset(1.4);
+}
+
+void set_dev_pad_attributes(TPad* p, int targ_index)
+{
+    // Set the margins of the pad
+    p->SetBottomMargin(dev_pads_bmargin[targ_index]);
+    p->SetTopMargin(   dev_pads_tmargin[targ_index]);
+    p->SetLeftMargin(  dev_pads_lmargin[targ_index]);
+    p->SetRightMargin( dev_pads_rmargin[targ_index]);
+
+    // Set the grids
+    p->SetGridx(1);
+    p->SetGridy(1);
+}
+
+void set_dev_multigraph_properties(TMultiGraph* mg)
+{
+    // X axis
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff],1.);
+    mg->GetXaxis()->SetTitleOffset(1.1);
+    mg->GetXaxis()->SetTitle("z_{h}");
+    mg->GetXaxis()->CenterTitle();
+
+    // Y axis
+    mg->GetYaxis()->SetRangeUser(-14,14);
+    mg->GetYaxis()->SetTitle("Dev. from nominal (%)");
+    mg->GetYaxis()->CenterTitle();
+    mg->GetYaxis()->SetTitleOffset(1.4);
+}
+
+void set_dev_legend_properties(TLegend* legend)
+{
+    legend->SetFillStyle(0);                                                                                                                                    
+    legend->SetBorderSize(0);                                                                                                                                   
+    legend->SetTextFont(62);                                                                                                                                    
+    legend->SetTextSize(0.04);
+}
+
+void set_style_properties(TStyle* style)
+{
+    style->SetGridColor(17);
+    style->SetPadBorderMode(0);
+    style->SetTickLength(0.002,"XY");
+    style->SetTitleFont(62,"XY");
+    style->SetTitleSize(0.04,"XY");
 }
