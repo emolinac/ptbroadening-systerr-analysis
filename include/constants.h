@@ -22,14 +22,14 @@ std::string extension                = ".root";
 std::string input_dir                = "/home/esteban/work/ptbroadening-systerr-analysis/input-files/";
 
 std::string syst_legend[9][2] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm"      },
-                                     {", Acc>0.005"             ,", Acc>0.01"              },
-                                     {", CT P^{2}_{T} Bins = 50",", CT P^{2}_{T} Bins = 70"},
-                                     {", N_{acc}>0"             ,", N_{acc}>2"             }, 
-                                     {", P^{2}_{T} Bins = 70"   ,", P^{2}_{T} Bins = 110"  },
-                                     {", RC Treated"            ,", RC Not Treated"        },
-                                     {", Tail with cutoff"      ,", Tail Not Treated"      },
-                                     {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
-                                     {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
+                                 {", Acc>0.005"             ,", Acc>0.01"              },
+                                 {", CT P^{2}_{T} Bins = 50",", CT P^{2}_{T} Bins = 70"},
+                                 {", N_{acc}>0"             ,", N_{acc}>2"             }, 
+                                 {", P^{2}_{T} Bins = 70"   ,", P^{2}_{T} Bins = 110"  },
+                                 {", RC Treated"            ,", RC Not Treated"        },
+                                 {", Tail with cutoff"      ,", Tail Not Treated"      },
+                                 {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
+                                 {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
 std::string syst[9]           = {"absdeltaz", "accminlim", "ct", "naccept", "npt2", "rad", "bgreduction", "tof", "vc"};
 
 // Binning configuration

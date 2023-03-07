@@ -441,7 +441,6 @@ void get_staterr_graph(TGraphErrors* g, TGraphErrors* g_stat)
     for(int point = 0 ; point < g->GetN() ; point++)
     {
         double errY_percentage_point = errY[point]*100./Y[point];
-        std::cout<<errY_percentage_point<<std::endl;
         g_stat->SetPoint(point, X[point], 0);
         g_stat->SetPointError(point, X[point], errY_percentage_point);
     }
