@@ -12,7 +12,7 @@
 const int Zh_cutoff = 2;
 
 // Systematic Errors settings
-const int total_syst      = 10;
+const int total_syst      = 9;
 const int syst_variations = 2;
 
 // Name templates

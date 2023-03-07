@@ -404,7 +404,7 @@ void set_dev_pad_attributes(TPad* p, int targ_index)
 void set_dev_multigraph_properties(TMultiGraph* mg)
 {
     // X axis
-    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff],1.);
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff],0.94);
     mg->GetXaxis()->SetTitleOffset(1.1);
     mg->GetXaxis()->SetTitle("z_{h}");
     mg->GetXaxis()->CenterTitle();
@@ -431,4 +431,18 @@ void set_style_properties(TStyle* style)
     style->SetTickLength(0.002,"XY");
     style->SetTitleFont(62,"XY");
     style->SetTitleSize(0.04,"XY");
+}
+
+void get_staterr_graph(TGraphErrors* g, TGraphErrors* g_stat)
+{
+    Double_t* errY = g->GetEY();
+    Double_t* Y    = g->GetY();
+    Double_t* X    = g->GetX();
+    for(int point = 0 ; point < g->GetN() ; point++)
+    {
+        double errY_percentage_point = errY[point]*100./Y[point];
+        std::cout<<errY_percentage_point<<std::endl;
+        g_stat->SetPoint(point, X[point], 0);
+        g_stat->SetPointError(point, X[point], errY_percentage_point);
+    }
 }
