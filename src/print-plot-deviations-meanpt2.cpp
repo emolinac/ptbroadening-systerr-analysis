@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                 th1f_to_tgrapherrors(h[syst_index][targ][var] ,g[syst_index][targ][var]);
 
                 // Customize graph
-                g[syst_index][targ][var]->SetMarkerStyle(targ_marker[var]);
+                g[syst_index][targ][var]->SetMarkerStyle(dev_marker[var]);
                 g[syst_index][targ][var]->SetMarkerColor(targ_colors[targ]);
                 set_xerr_null(g[syst_index][targ][var]);
                 set_yerr_null(g[syst_index][targ][var]);
@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
             p[syst_index][targ] = new TPad(Form("p%i%i",syst_index,targ),Form("p%i%i",syst_index,targ), dev_pad_limits[solid][targ - 3*solid], 0, dev_pad_limits[solid][targ - 3*solid + 1], 1);
 
             // Set attributes of the pad
-            set_dev_pad_attributes(p[syst_index][targ], targ);
+            set_dev_pad_attributes(p[syst_index][targ], targ - 3*solid);
 
             // Select the TCanvas
             c->cd();

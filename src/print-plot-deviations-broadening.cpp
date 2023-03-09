@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                 th1f_to_tgrapherrors(h[syst_index][targ][var] ,g[syst_index][targ][var]);
 
                 // Customize graph
-                g[syst_index][targ][var]->SetMarkerStyle(targ_marker[var]);
+                g[syst_index][targ][var]->SetMarkerStyle(dev_marker[var]);
                 g[syst_index][targ][var]->SetMarkerColor(targ_colors[targ]);
                 set_xerr_null(g[syst_index][targ][var]);
                 set_yerr_null(g[syst_index][targ][var]);

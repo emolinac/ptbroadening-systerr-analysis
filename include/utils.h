@@ -1,4 +1,6 @@
 #include "TH1F.h"
+#include "TGraphErrors.h"
+#include <cmath>
 
 // Returns 1 if the histogram is empty.
 int empty_histo(TH1F* h)
@@ -51,6 +53,25 @@ void set_systerr_histo(TH1F* h_syst, TH1F* h_variation_a, TH1F* h_variation_b)
     
         // Calculate the syst error and assign to the histos
         h_syst->SetBinContent(bin, max_dev/TMath::Sqrt(3.));
+    }
+
+    return;
+}
+
+// Adds systematic errors on quadrature
+void set_syst_errors(TH1F* h_syst, TGraphErrors* g)
+{
+    // Obtain info from "nominal"
+    Double_t* errX = g->GetEX();
+    Double_t* errY = g->GetEY();
+    Double_t* Y    = g->GetY();
+    
+    for(int point = 0 ; point < g->GetN() ; point++)
+    {
+        // Syst err is in percent, where 1 is 100%
+        double errY_syst  = h_syst->GetBinContent(point+1)*Y[point];
+        double errY_total = sqrt(errY[point]*errY[point] + errY_syst*errY_syst);
+        g->SetPointError(point, errX[point], errY_total);
     }
 
     return;

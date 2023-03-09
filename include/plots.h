@@ -1,6 +1,7 @@
 #include "TGraphErrors.h"
 #include "TMultiGraph.h"
 #include "TLatex.h"
+#include "TLegend.h"
 #include "TPad.h"
 #include "constants.h"
 

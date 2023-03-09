@@ -53,8 +53,9 @@ std::string broadening_targets[N_broadening] = { "C" , "Fe" , "Pb" };
 
 // Visual Settings : General
 
-const int targ_colors[N_targets] = { 2 , 4 , 1 , 2 , 4 , 1 };
-const int targ_marker[syst_variations] = { 22 , 23 };
+const int targ_colors[N_targets]      = { 2 , 4 , 1 , 2 , 4 , 1 };
+const int dev_marker[syst_variations] = { 22 , 23 };
+const int targ_marker[N_targets]      = { 24 , 24 , 24 , 20 , 20 , 20 };
 
 const int zh_colors[N_Zh]        = { 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8};
 const int zh_marker[N_Zh]        = { 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27};
