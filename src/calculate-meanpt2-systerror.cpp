@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     if(fin==NULL){std::cout<<"Nominal file does not exist!"<<std::endl; return 0;}
 
     // Check what systematics exist
-    std::vector<int> syst_index;
+    std::vector<int> syst_index_vector;
     for(int index = 0 ; index < total_syst ; index++)
     {
         std::string file_name = input_dir+meanpt2_file_template+syst[index]+"-a"+extension;
@@ -24,12 +24,12 @@ int main(int argc, char* argv[])
         {
             // Store the index of the existing systematic
             std::cout<<syst[index]<<" systematic has been found. Adding to analysis."<<std::endl;
-            syst_index.push_back(index);
+            syst_index_vector.push_back(index);
         }
     }
 
     // Store the number systematic sources found
-    const int syst_index_size = syst_index.size();
+    const int syst_index_size = syst_index_vector.size();
     if(syst_index_size==0){std::cout<<"There are no sources of systematic errors! Exiting."<<std::endl; return 0;}
 
     // Create output file
@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
     for(int index = 0 ; index < syst_index_size ; index++)
     {
         // Declare names so ROOT can open the files
-        std::string file_name_a = input_dir+meanpt2_file_template+syst[syst_index[index]]+"-a"+extension;
-        std::string file_name_b = input_dir+meanpt2_file_template+syst[syst_index[index]]+"-b"+extension;
+        std::string file_name_a = input_dir+meanpt2_file_template+syst[syst_index_vector[index]]+"-a"+extension;
+        std::string file_name_b = input_dir+meanpt2_file_template+syst[syst_index_vector[index]]+"-b"+extension;
 
         // Open systematics files
         fin_syst[index][0] = new TFile(file_name_a.c_str());

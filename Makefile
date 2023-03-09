@@ -10,13 +10,19 @@ ROOTLDFLAGS := $(shell root-config --ldflags)
 ROOTLIBS    := $(shell root-config --libs) -lEG
 
 all: ${BIN}/calculate-meanpt2-systerror ${BIN}/calculate-broadening-systerror ${BIN}/print-plot-deviations-broadening ${BIN}/print-plot-deviations-meanpt2 \
-	 ${BIN}/print-plot-broadening-q2nuzh ${BIN}/print-plot-broadening-q2nuzha13
+	 ${BIN}/print-plot-broadening-q2nuzh ${BIN}/print-plot-broadening-q2nuzha13 ${BIN}/calculate-differential-broadening-systerror ${BIN}/calculate-differential-meanpt2-systerror
 
 ${BIN}/calculate-meanpt2-systerror: ${SRC}/calculate-meanpt2-systerror.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/calculate-meanpt2-systerror.cpp -o ${BIN}/calculate-meanpt2-systerror ${ROOTLIBS}
 
 ${BIN}/calculate-broadening-systerror: ${SRC}/calculate-broadening-systerror.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/calculate-broadening-systerror.cpp -o ${BIN}/calculate-broadening-systerror ${ROOTLIBS}
+
+${BIN}/calculate-differential-broadening-systerror: ${SRC}/calculate-differential-broadening-systerror.cpp
+	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/calculate-differential-broadening-systerror.cpp -o ${BIN}/calculate-differential-broadening-systerror ${ROOTLIBS}
+
+${BIN}/calculate-differential-meanpt2-systerror: ${SRC}/calculate-differential-meanpt2-systerror.cpp
+	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/calculate-differential-meanpt2-systerror.cpp -o ${BIN}/calculate-differential-meanpt2-systerror ${ROOTLIBS}
 
 ${BIN}/print-plot-deviations-broadening: ${SRC}/print-plot-deviations-broadening.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/print-plot-deviations-broadening.cpp -o ${BIN}/print-plot-deviations-broadening ${ROOTLIBS}

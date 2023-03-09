@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     gROOT->SetStyle("my");
 
     // Open file
-    TFile* fin         = new TFile("../output-files/results-broadening-systerr.root");
+    TFile* fin         = new TFile("../output-files/results-differential-broadening-systerr.root");
     TFile* fin_nominal = new TFile("../input-files/results-broadening-nominal.root");
     if(fin==NULL){std::cout<<"No input file!"<<std::endl; return 1;}
 

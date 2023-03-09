@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     gROOT->SetStyle("my");
 
     // Open file
-    TFile* fin         = new TFile("../output-files/results-broadening-systerr.root");
+    TFile* fin         = new TFile("../output-files/results-differential-broadening-systerr.root");
     TFile* fin_nominal = new TFile("../input-files/results-broadening-nominal.root");
     if(fin==NULL){std::cout<<"No input file!"<<std::endl; return 1;}
 
@@ -72,21 +72,18 @@ int main(int argc, char *argv[])
 
                 th1f_to_tgrapherrors(h[Q2_bin][Nu_bin][targ], g[Q2_bin][Nu_bin][targ]);
                 th1f_to_tgrapherrors(h[Q2_bin][Nu_bin][targ], g_withsyst[Q2_bin][Nu_bin][targ]);
+            }
 
-                for(int Zh_bin = Zh_bin_start ; Zh_bin < (Zh_bin_start+Zh_bins) ; Zh_bin++)
-                {
-                    int Zh_index = Zh_bin-Zh_bin_start;
-
-                    ga13[Q2_bin][Nu_bin][Zh_index] = new TGraphErrors(Zh_bins);
-                    set_zh_to_a13(g[Q2_bin][Nu_bin][0], g[Q2_bin][Nu_bin][1], g[Q2_bin][Nu_bin][2], ga13[Q2_bin][Nu_bin][Zh_index], Zh_bin);
-
-                    // Customize graphs
-                    ga13[Q2_bin][Nu_bin][Zh_index]->SetMarkerStyle(zh_marker[Zh_index]);
-                    ga13[Q2_bin][Nu_bin][Zh_index]->SetMarkerColor(zh_colors[Zh_index]);
-                    ga13[Q2_bin][Nu_bin][Zh_index]->SetLineColor(zh_colors[Zh_index]);
-
-                    shift_x(ga13[Q2_bin][Nu_bin][Zh_index], shift_x_a13[Zh_index], Zh_bins);
-                }
+            for(int Zh_bin = Zh_bin_start ; Zh_bin < (Zh_bin_start+Zh_bins) ; Zh_bin++)
+            {
+                int Zh_index = Zh_bin-Zh_bin_start;
+                ga13[Q2_bin][Nu_bin][Zh_index] = new TGraphErrors(Zh_bins);
+                set_zh_to_a13(g[Q2_bin][Nu_bin][0], g[Q2_bin][Nu_bin][1], g[Q2_bin][Nu_bin][2], ga13[Q2_bin][Nu_bin][Zh_index], Zh_bin);
+                // Customize graphs
+                ga13[Q2_bin][Nu_bin][Zh_index]->SetMarkerStyle(zh_marker[Zh_index]);
+                ga13[Q2_bin][Nu_bin][Zh_index]->SetMarkerColor(zh_colors[Zh_index]);
+                ga13[Q2_bin][Nu_bin][Zh_index]->SetLineColor(zh_colors[Zh_index]);
+                shift_x(ga13[Q2_bin][Nu_bin][Zh_index], shift_x_a13[Zh_index], Zh_bins);
             }
         }
     }
