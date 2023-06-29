@@ -106,14 +106,14 @@ int main(int argc, char* argv[])
                         set_deviation_histo(h_broadening_devs[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index], h_broadening_nominal[Q2_bin][Nu_bin][targ_index], h_broadening_syst[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index]);
                         // Store
                         fout->cd();
-                        h_broadening_devs[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index]->Write(("dev_broadening_Zh_"+syst[systsource_index]+"_"+std::to_string(systvar_index)+"_"+broadening_targets[targ_index]+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
+                        h_broadening_devs[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index]->Write(("dev_broadening_Zh_"+syst[syst_index_vector[systsource_index]]+"_"+std::to_string(systvar_index)+"_"+broadening_targets[targ_index]+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
                         gROOT->cd();
                     }
                     // Calculate the systematic errors and set them in a histogram
                     set_systerr_histo(h_broadening_systerr[systsource_index][Q2_bin][Nu_bin][targ_index], h_broadening_devs[systsource_index][0][Q2_bin][Nu_bin][targ_index], h_broadening_devs[systsource_index][1][Q2_bin][Nu_bin][targ_index]);
                     // Store
                     fout->cd();
-                    h_broadening_systerr[systsource_index][Q2_bin][Nu_bin][targ_index]->Write(("systerr_broadening_Zh_"+syst[systsource_index]+"_"+broadening_targets[targ_index]+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
+                    h_broadening_systerr[systsource_index][Q2_bin][Nu_bin][targ_index]->Write(("systerr_broadening_Zh_"+syst[syst_index_vector[systsource_index]]+"_"+broadening_targets[targ_index]+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
                     gROOT->cd();
                 }
             }

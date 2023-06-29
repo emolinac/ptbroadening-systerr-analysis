@@ -34,7 +34,7 @@ std::string syst_legend[9][2] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm
                                  {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
                                  {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
 
-std::string syst[9]           = {"absdeltaz", "accminlim", "ct", "naccept", "npt2", "rad", "bgreduction", "tof", "vc"};
+std::string syst[9]           = {"deltaz", "acc", "ct", "naccept", "pt2binning", "rad", "bgreduction", "tof", "vertexcut"};
  
 // syst=("syst-acc" "syst-deltaz" "syst-naccept" "syst-pt2binning" "syst-tof" "syst-vertexcut")
 // a=("accg005" "deltaz-leq-25" "nacceptg0" "110bins" "tof-momentuml25" "hh-vc")

@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
                 
                 // Store
                 fout->cd();
-                h_broadening_devs[systsource_index][systvar_index][targ_index]->Write(("dev_broadening_Zh_"+syst[systsource_index]+"_"+std::to_string(systvar_index)+"_"+broadening_targets[targ_index]).c_str());
+                h_broadening_devs[systsource_index][systvar_index][targ_index]->Write(("dev_broadening_Zh_"+syst[syst_index_vector[systsource_index]]+"_"+std::to_string(systvar_index)+"_"+broadening_targets[targ_index]).c_str());
                 gROOT->cd();
             }
 
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
             
             // Store
             fout->cd();
-            h_broadening_systerr[systsource_index][targ_index]->Write(("systerr_broadening_Zh_"+syst[systsource_index]+"_"+broadening_targets[targ_index]).c_str());
+            h_broadening_systerr[systsource_index][targ_index]->Write(("systerr_broadening_Zh_"+syst[syst_index_vector[systsource_index]]+"_"+broadening_targets[targ_index]).c_str());
             gROOT->cd();
         }
     }

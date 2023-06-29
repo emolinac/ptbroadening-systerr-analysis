@@ -71,13 +71,14 @@ int main(int argc, char *argv[])
         set_xerr_null(g_withsyst[targ]);
         shift_x(g_withsyst[targ], shift_x_zh[targ]);
     }
-
+    std::cout<<"Nominal obtained"<<std::endl;
     // Obtain SYSTEMATICS histos and set the systematic errors on the results plots
     for(int syst_index = 0 ; syst_index < syst_index_vector_size ; syst_index++)
     {
         for(int targ = 0 ; targ < N_broadening ; targ++)
         {
             std::string systerr_plot_name = "systerr_broadening_Zh_" + syst[syst_index_vector[syst_index]] + "_" + broadening_targets[targ];
+            std::cout<<"Obtaining "<<systerr_plot_name<<std::endl;
             h_syst[syst_index][targ] = (TH1F*) fin->Get(systerr_plot_name.c_str());
         
             // Set the systematic errors in the results plot
