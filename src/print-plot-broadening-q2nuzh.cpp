@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     gROOT->SetStyle("my");
 
     // Open file
-    TFile* fin         = new TFile("../output-files/results-differential-broadening-systerr.root");
-    TFile* fin_nominal = new TFile("../input-files/results-broadening-nominal.root");
+    TFile* fin         = new TFile(broadening_syst_results_diff.c_str());
+    TFile* fin_nominal = new TFile(broadening_nominal_results.c_str());
     if(fin==NULL){std::cout<<"No input file!"<<std::endl; return 1;}
 
     // Check what systematics exist

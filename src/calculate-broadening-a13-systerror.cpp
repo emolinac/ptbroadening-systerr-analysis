@@ -12,14 +12,14 @@
 int main(int argc, char* argv[])
 {
     // Open file that contains nominal results
-    TFile* fin = new TFile("../input-files/results-meanpt2-nominal.root");
+    TFile* fin = new TFile(broadening_nominal_results.c_str());
     if(fin==NULL){std::cout<<"Nominal file does not exist!"<<std::endl; return 0;}
 
     // Check what systematics exist
     std::vector<int> syst_index_vector;
     for(int index = 0 ; index < total_syst ; index++)
     {
-        std::string file_name = input_dir+meanpt2_file_template+syst[index]+"-a"+extension;
+        std::string file_name = input_dir+broadening_file_template+syst[index]+"-a"+extension;
         if(!gSystem->AccessPathName(file_name.c_str()))
         {
             // Store the index of the existing systematic
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     if(syst_index_size==0){std::cout<<"There are no sources of systematic errors! Exiting."<<std::endl; return 0;}
 
     // Create output file
-    TFile* fout = new TFile("../output-files/results-meanpt2-systerr.root","RECREATE");
+    TFile* fout = new TFile(broadening_syst_results_a13.c_str(),"RECREATE");
     gROOT->cd();
 
     // Declare the array of systematics files
@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
     for(int index = 0 ; index < syst_index_size ; index++)
     {
         // Declare names so ROOT can open the files
-        std::string file_name_a = input_dir+meanpt2_file_template+syst[syst_index_vector[index]]+"-a"+extension;
-        std::string file_name_b = input_dir+meanpt2_file_template+syst[syst_index_vector[index]]+"-b"+extension;
+        std::string file_name_a = input_dir+broadening_file_template+syst[syst_index_vector[index]]+"-a"+extension;
+        std::string file_name_b = input_dir+broadening_file_template+syst[syst_index_vector[index]]+"-b"+extension;
 
         // Open systematics files
         fin_syst[index][0] = new TFile(file_name_a.c_str());
@@ -50,60 +50,57 @@ int main(int argc, char* argv[])
     }
 
     // Nominal histo
-    TH1F* h_meanpt2_nominal[N_targets];
+    TH1F* h_broadening_nominal[N_broadening];
     // Systematic histos
-    TH1F* h_meanpt2_syst[syst_index_size][syst_variations][N_targets];
+    TH1F* h_broadening_syst[syst_index_size][syst_variations][N_broadening];
     // Deviation histos
-    TH1F* h_meanpt2_devs[syst_index_size][syst_variations][N_targets];
+    TH1F* h_broadening_devs[syst_index_size][syst_variations][N_broadening];
     // Syst Error histos
-    TH1F* h_meanpt2_systerr[syst_index_size][N_targets];
+    TH1F* h_broadening_systerr[syst_index_size][N_broadening];
 
     // WARNING : CHANGE THESE NAMES ON WHEN YOU FINALLY TRANSLATE TO THIS FRAMEWORK!!!!!
     // Assign nominal histos
-    for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
+    for(int targ_index = 0 ; targ_index < N_broadening ; targ_index++)
     {
-        h_meanpt2_nominal[targ_index] = (TH1F*)fin->Get(("meanPt2_Zh_"+targets[targ_index]).c_str());
-        if(h_meanpt2_nominal[targ_index]==NULL){std::cout<<"Nominal Null"<<std::endl; return 0;}
+        h_broadening_nominal[targ_index] = (TH1F*)fin->Get(("broadening_"+broadening_targets[targ_index]).c_str());
     }
     
     // Assign the constructor to the rest of histos
     for(int systsource_index = 0 ; systsource_index < syst_index_size ; systsource_index++)
     {
-        for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
+        for(int targ_index = 0 ; targ_index < N_broadening ; targ_index++)
         {
-            h_meanpt2_systerr[systsource_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
+            h_broadening_systerr[systsource_index][targ_index] = new TH1F("","",1,0,1);
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                h_meanpt2_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("meanPt2_Zh_"+targets[targ_index]).c_str());
-                h_meanpt2_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",N_Zh,Zh_limits);
-
-                if(h_meanpt2_syst[systsource_index][systvar_index][targ_index]==NULL){std::cout<<"Syst Null"<<std::endl; return 0;}
+                h_broadening_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("broadening_"+broadening_targets[targ_index]).c_str());
+                h_broadening_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",1,0,1);
             }
         }
     }
 
     // Loop through systematics and the respective variations
-    for(int targ_index = 0 ; targ_index < N_targets ; targ_index++)
+    for(int targ_index = 0 ; targ_index < N_broadening ; targ_index++)
     {
         for(int systsource_index = 0 ; systsource_index < syst_index_size ; systsource_index++)
         {
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
                 // Calculate deviations and set them in a histogram
-                set_deviation_histo(h_meanpt2_devs[systsource_index][systvar_index][targ_index], h_meanpt2_nominal[targ_index], h_meanpt2_syst[systsource_index][systvar_index][targ_index]);
+                set_deviation_histo(h_broadening_devs[systsource_index][systvar_index][targ_index], h_broadening_nominal[targ_index], h_broadening_syst[systsource_index][systvar_index][targ_index]);
                 
                 // Store
                 fout->cd();
-                h_meanpt2_devs[systsource_index][systvar_index][targ_index]->Write(("dev_meanPt2_Zh_"+syst[systsource_index]+"_"+std::to_string(systvar_index)+"_"+targets[targ_index]).c_str());
+                h_broadening_devs[systsource_index][systvar_index][targ_index]->Write(("dev_broadening_"+syst[systsource_index]+"_"+std::to_string(systvar_index)+"_"+broadening_targets[targ_index]).c_str());
                 gROOT->cd();
             }
 
             // Calculate the systematic errors and set them in a histogram
-            set_systerr_histo(h_meanpt2_systerr[systsource_index][targ_index], h_meanpt2_devs[systsource_index][0][targ_index], h_meanpt2_devs[systsource_index][1][targ_index]);
+            set_systerr_histo(h_broadening_systerr[systsource_index][targ_index], h_broadening_devs[systsource_index][0][targ_index], h_broadening_devs[systsource_index][1][targ_index]);
             
             // Store
             fout->cd();
-            h_meanpt2_systerr[systsource_index][targ_index]->Write(("systerr_meanPt2_Zh_"+syst[systsource_index]+"_"+targets[targ_index]).c_str());
+            h_broadening_systerr[systsource_index][targ_index]->Write(("systerr_broadening_"+syst[systsource_index]+"_"+broadening_targets[targ_index]).c_str());
             gROOT->cd();
         }
     }

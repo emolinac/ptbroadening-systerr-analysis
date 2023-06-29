@@ -16,10 +16,13 @@ const int total_syst      = 9;
 const int syst_variations = 2;
 
 // Name templates
+std::string input_dir  = "/home/esteban/work/ptbroadening-systerr-analysis/input-files/";
+std::string output_dir = "/home/esteban/work/ptbroadening-systerr-analysis/output-files/";
+std::string extension  = ".root";
+
+// Used in systematic analysis
 std::string meanpt2_file_template    = "results-meanpt2-";
 std::string broadening_file_template = "results-broadening-";
-std::string extension                = ".root";
-std::string input_dir                = "/home/esteban/work/ptbroadening-systerr-analysis/input-files/";
 
 std::string syst_legend[9][2] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm"      },
                                  {", Acc>0.005"             ,", Acc>0.01"              },
@@ -30,7 +33,23 @@ std::string syst_legend[9][2] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm
                                  {", Tail with cutoff"      ,", Tail Not Treated"      },
                                  {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
                                  {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
+
 std::string syst[9]           = {"absdeltaz", "accminlim", "ct", "naccept", "npt2", "rad", "bgreduction", "tof", "vc"};
+ 
+// syst=("syst-acc" "syst-deltaz" "syst-naccept" "syst-pt2binning" "syst-tof" "syst-vertexcut")
+// a=("accg005" "deltaz-leq-25" "nacceptg0" "110bins" "tof-momentuml25" "hh-vc")
+// b=("accg01"  "deltaz-leq-35" "nacceptg2" "70bins"  "tof-momentuml29" "rd-vc")
+
+
+// Used when opening results
+std::string broadening_syst_results_a13  = output_dir + "results-broadening-a13-systerr" + extension;
+std::string broadening_syst_results_zh   = output_dir + "results-broadening-zh-systerr" + extension;
+std::string broadening_syst_results_diff = output_dir + "results-broadening-differential-systerr" + extension;
+std::string broadening_nominal_results   = input_dir  + "results-broadening-nominal" + extension;
+
+std::string meanpt2_syst_results_zh   = output_dir + "results-meanpt2-zh-systerr" + extension;
+std::string meanpt2_syst_results_diff = output_dir + "results-meanpt2-differential-systerr" + extension;
+std::string meanpt2_nominal_results   = input_dir  + "results-meanpt2-nominal" + extension;
 
 // Binning configuration
 const int N_Q2  = 3;
