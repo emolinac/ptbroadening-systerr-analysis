@@ -16,32 +16,25 @@ mkdir ${mother_dir}/${syst}/${b}
 
 # Clone the repo
 git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst}/${a}/ptbroadening-analysis
-cd ${mother_dir}/${syst}/${a}/ptbroadening-analysis
-git checkout -b closure-test origin/closure-test
-
 git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst}/${a}/ptbroadening-analysis-xf
-cd ${mother_dir}/${syst}/${a}/ptbroadening-analysis-xf
-git checkout -b closure-test origin/closure-test
-
 git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst}/${b}/ptbroadening-analysis
-cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis
-git checkout -b closure-test origin/closure-test
-
 git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst}/${b}/ptbroadening-analysis-xf
-cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis-xf
-git checkout -b closure-test origin/closure-test
 
 # Compile the repos
 cd ${mother_dir}/${syst}/${a}/ptbroadening-analysis
+git checkout -b closure-test origin/closure-test
 make
 
 cd ${mother_dir}/${syst}/${a}/ptbroadening-analysis-xf
+git checkout -b closure-test origin/closure-test
 make
 
 cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis
+git checkout -b closure-test origin/closure-test
 make 
 
 cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis-xf
+git checkout -b closure-test origin/closure-test
 make
 
 # Obtain broadening results
