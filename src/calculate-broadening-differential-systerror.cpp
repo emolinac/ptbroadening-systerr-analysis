@@ -83,7 +83,9 @@ int main(int argc, char* argv[])
                     h_broadening_systerr[systsource_index][Q2_bin][Nu_bin][targ_index] = new TH1F("","",N_Zh,Zh_limits);
                     for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
                     {
-                        h_broadening_syst[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("broadening_Zh_"+broadening_targets[targ_index]+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
+                        std::string syst_plot_name = (syst[syst_index_vector[systsource_index]]=="rad") ? "accrc_broadening_Zh_"+broadening_targets[targ_index] :
+                                                                                                          "broadening_Zh_"+broadening_targets[targ_index];
+                        h_broadening_syst[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get((syst_plot_name+"_"+std::to_string(Q2_bin)+std::to_string(Nu_bin)).c_str());
                         h_broadening_devs[systsource_index][systvar_index][Q2_bin][Nu_bin][targ_index] = new TH1F("","",N_Zh,Zh_limits);
                     }
                 }

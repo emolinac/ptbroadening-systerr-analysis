@@ -73,7 +73,10 @@ int main(int argc, char* argv[])
             h_broadening_systerr[systsource_index][targ_index] = new TH1F("","",1,0,1);
             for(int systvar_index = 0 ; systvar_index < syst_variations ; systvar_index++)
             {
-                h_broadening_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get(("broadening_"+broadening_targets[targ_index]).c_str());
+                std::string syst_plot_name = (syst[syst_index_vector[systsource_index]]=="rad") ? "accrc_broadening_"+broadening_targets[targ_index] :
+                                                                                                  "broadening_"+broadening_targets[targ_index];
+                        
+                h_broadening_syst[systsource_index][systvar_index][targ_index] = (TH1F*)fin_syst[systsource_index][systvar_index]->Get((syst_plot_name).c_str());
                 h_broadening_devs[systsource_index][systvar_index][targ_index] = new TH1F("","",1,0,1);
             }
         }

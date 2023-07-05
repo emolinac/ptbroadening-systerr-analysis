@@ -122,7 +122,6 @@ void set_zh_to_a13(TGraphErrors* gC, TGraphErrors* gFe, TGraphErrors* gPb,
     // Fail-safe
     if(gC==NULL||gFe==NULL||gPb==NULL){std::cout<<"No TGraphErrors passed!"<<std::endl; return;}
 
-    std::cout<<"set_zh_to_a13 start"<<std::endl;
     // Obtain contents
     double* gC_Y  = gC->GetY();
     double* gFe_Y = gFe->GetY();
@@ -132,9 +131,6 @@ void set_zh_to_a13(TGraphErrors* gC, TGraphErrors* gFe, TGraphErrors* gPb,
     double* gC_errY  = gC->GetEY();
     double* gFe_errY = gFe->GetEY();
     double* gPb_errY = gPb->GetEY();
-    
-    // PRINTS
-    std::cout<<gC_Y[0]<<" "<<gFe_Y[0]<<" "<<gPb_Y[0]<<std::endl;
     
     // Set the values to a A13 graphs
     zh->SetPoint(0, A13[3  ], gC_Y[Zh_bin]);
@@ -415,7 +411,7 @@ void set_dev_multigraph_properties(TMultiGraph* mg)
     mg->GetXaxis()->CenterTitle();
 
     // Y axis
-    mg->GetYaxis()->SetRangeUser(-14,14);
+    mg->GetYaxis()->SetRangeUser(-12,12);
     mg->GetYaxis()->SetTitle("Dev. from nominal (%)");
     mg->GetYaxis()->CenterTitle();
     mg->GetYaxis()->SetTitleOffset(1.4);

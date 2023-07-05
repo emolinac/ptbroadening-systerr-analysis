@@ -24,17 +24,17 @@ std::string extension  = ".root";
 std::string meanpt2_file_template    = "results-meanpt2-";
 std::string broadening_file_template = "results-broadening-";
 
-std::string syst_legend[9][2] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm"      },
-                                 {", Acc>0.005"             ,", Acc>0.01"              },
-                                 {", CT P^{2}_{T} Bins = 50",", CT P^{2}_{T} Bins = 70"},
-                                 {", N_{acc}>0"             ,", N_{acc}>2"             }, 
-                                 {", P^{2}_{T} Bins = 70"   ,", P^{2}_{T} Bins = 110"  },
-                                 {", RC Treated"            ,", RC Not Treated"        },
-                                 {", Tail with cutoff"      ,", Tail Not Treated"      },
-                                 {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
-                                 {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
+std::string syst_legend[total_syst][syst_variations] = {{", |#Delta Z|<2.5cm"      ,", |#Delta Z|<3.5cm"      },
+                                                        {", Acc>0.005"             ,", Acc>0.01"              },
+                                                        {", CT P^{2}_{T} Bins = 50",", CT P^{2}_{T} Bins = 70"},
+                                                        {", N_{acc}>0"             ,", N_{acc}>2"             }, 
+                                                        {", P^{2}_{T} Bins = 70"   ,", P^{2}_{T} Bins = 110"  },
+                                                        {", RC A"                  ,", RC B"                  },
+                                                        {", Tail with cutoff"      ,", Tail Not Treated"      },
+                                                        {", TOF P<2.5GeV"          ,", TOF P<2.9GeV"          },
+                                                        {", Vertex Cut HH"         ,", Vertex Cut RD"         }};
 
-std::string syst[9]           = {"deltaz", "acc", "ct", "naccept", "pt2binning", "rad", "bgreduction", "tof", "vertexcut"};
+std::string syst[total_syst]           = {"deltaz", "acc", "ct", "naccept", "pt2binning", "rad", "bgreduction", "tof", "vertexcut"};
  
 // syst=("syst-acc" "syst-deltaz" "syst-naccept" "syst-pt2binning" "syst-tof" "syst-vertexcut")
 // a=("accg005" "deltaz-leq-25" "nacceptg0" "110bins" "tof-momentuml25" "hh-vc")
