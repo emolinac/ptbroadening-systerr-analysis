@@ -82,6 +82,9 @@ const int zh_marker[N_Zh]        = { 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27};
 const double shift_x_q2[N_targets]  = { -0.1   , 0 , 0.1   , -0.1   , 0 , 0.1   };
 const double shift_x_nu[N_targets]  = { -0.1   , 0 , 0.1   , -0.1   , 0 , 0.1   };
 const double shift_x_zh[N_targets]  = { -0.015 , 0 , 0.015 , -0.015 , 0 , 0.015 };
+const double shift_x_zh_big[N_targets]  = { -0.03 , 0 , 0.03 , -0.03 , 0 , 0.03 };
+
+const double shift_x_zh_compact[N_targets]  = { -0.008 , 0 , 0.008 , -0.008 , 0 , 0.008 };
 
 const double shift_x_a13[4] = { -0.075 , -0.025 , 0.025 , 0.075 };
 

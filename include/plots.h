@@ -52,6 +52,22 @@ double r_margins[3][3] = {{0, 0, rp_rightmargin },
 			              {0, 0, rp_rightmargin },
 			              {0, 0, rp_rightmargin }};
 
+double pad_X1_compact[3] = {0 , lp_length , lp_length+cp_length};
+
+double pad_X2_compact[3] = {lp_length , lp_length+cp_length , 1};
+
+double pad_Y1_compact[3] = { 0 , 0 , 0 };
+
+double pad_Y2_compact[3] = { 1 , 1 , 1 };
+
+double b_margins_compact[3] = {bottom_margin , bottom_margin , bottom_margin };
+ 
+double t_margins_compact[3] = {up_margin     , up_margin     , up_margin     };
+ 
+double l_margins_compact[3] = {lp_leftmargin , 0             , 0             };
+
+double r_margins_compact[3] = {0             , 0             , rp_rightmargin};
+
 // Functions
 void set_xerr_null(TGraphErrors* g, int Npoints = N_Zh)
 {
@@ -200,6 +216,16 @@ void set_pad_attributes(TPad* p, int Q2_bin, int Nu_bin)
     p->SetGridy(1);
 }
 
+void set_pad_attributes(TPad* p, int bin)
+{
+    p->SetBottomMargin(b_margins_compact[bin]);
+    p->SetTopMargin(t_margins_compact[bin]);
+    p->SetLeftMargin(l_margins_compact[bin]);
+    p->SetRightMargin(r_margins_compact[bin]);
+    p->SetGridx(1);
+    p->SetGridy(1);
+}
+
 void set_pad_attributes(TPad* p)
 {
     p->SetBottomMargin(0.1);
@@ -224,10 +250,18 @@ void set_latex_properties(TLatex* t_q2, TLatex* t_nu)
     t_nu->SetTextSize(0.05);  
 }
 
+void set_latex_properties(TLatex* t)
+{
+    t->SetTextAlign(22);
+    t->SetTextFont(62);
+    t->SetTextSize(0.05);  
+}
+
+
 void set_meanpt2_q2nuzh_multigraph_properties(TMultiGraph* mg)
 {
     // X axis
-    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.01,1.);
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.03,0.97);
     mg->GetXaxis()->SetTitleOffset(1.1);
     mg->GetXaxis()->SetTitle("z_{h}");
     mg->GetXaxis()->CenterTitle();
@@ -287,7 +321,7 @@ void set_meanpt2_nu_multigraph_properties(TMultiGraph* mg)
 void set_meanpt2_zh_multigraph_properties(TMultiGraph* mg)
 {
     // X axis
-    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.01,1.);
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.03,0.97);
     mg->GetXaxis()->SetTitleOffset(1.1);
     mg->GetXaxis()->SetTitle("z_{h}");
     mg->GetXaxis()->CenterTitle();
@@ -317,7 +351,7 @@ void set_broadening_q2nuzha13_multigraph_properties(TMultiGraph* mg)
 void set_broadening_q2nuzh_multigraph_properties(TMultiGraph* mg)
 {
     // X axis
-    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.01,1.);
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.03,0.97);
     mg->GetXaxis()->SetTitleOffset(1.1);
     mg->GetXaxis()->SetTitle("z_{h}");
     mg->GetXaxis()->CenterTitle();
@@ -377,7 +411,7 @@ void set_broadening_nu_multigraph_properties(TMultiGraph* mg)
 void set_broadening_zh_multigraph_properties(TMultiGraph* mg)
 {
     // X axis
-    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.01,1.);
+    mg->GetXaxis()->SetRangeUser(Zh_limits[Zh_cutoff]+0.03,0.97);
     mg->GetXaxis()->SetTitleOffset(1.1);
     mg->GetXaxis()->SetTitle("z_{h}");
     mg->GetXaxis()->CenterTitle();

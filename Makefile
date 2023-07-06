@@ -11,7 +11,8 @@ ROOTLIBS    := $(shell root-config --libs) -lEG
 
 all: ${BIN}/calculate-broadening-zh-systerror ${BIN}/print-plot-deviations-broadening\
 	 ${BIN}/print-plot-broadening-q2nuzh ${BIN}/print-plot-broadening-q2nuzha13 ${BIN}/calculate-broadening-differential-systerror \
-	 ${BIN}/print-plot-broadening-zh ${BIN}/print-plot-broadening-a13 ${BIN}/calculate-broadening-a13-systerror
+	 ${BIN}/print-plot-broadening-zh ${BIN}/print-plot-broadening-a13 ${BIN}/calculate-broadening-a13-systerror \
+	 ${BIN}/print-plot-broadening-q2nuzh-compact
 
 ${BIN}/calculate-broadening-a13-systerror: ${SRC}/calculate-broadening-a13-systerror.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/calculate-broadening-a13-systerror.cpp -o ${BIN}/calculate-broadening-a13-systerror ${ROOTLIBS}
@@ -27,6 +28,9 @@ ${BIN}/print-plot-deviations-broadening: ${SRC}/print-plot-deviations-broadening
 
 ${BIN}/print-plot-broadening-q2nuzh: ${SRC}/print-plot-broadening-q2nuzh.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/print-plot-broadening-q2nuzh.cpp -o ${BIN}/print-plot-broadening-q2nuzh ${ROOTLIBS}
+
+${BIN}/print-plot-broadening-q2nuzh-compact: ${SRC}/print-plot-broadening-q2nuzh-compact.cpp
+	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/print-plot-broadening-q2nuzh-compact.cpp -o ${BIN}/print-plot-broadening-q2nuzh-compact ${ROOTLIBS}
 
 ${BIN}/print-plot-broadening-q2nuzha13: ${SRC}/print-plot-broadening-q2nuzha13.cpp
 	${CXX} -I${INC} ${ROOTCFLAGS} ${SRC}/print-plot-broadening-q2nuzha13.cpp -o ${BIN}/print-plot-broadening-q2nuzha13 ${ROOTLIBS}
