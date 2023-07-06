@@ -9,6 +9,7 @@
 #include "constants.h"
 #include "plots.h"
 #include "utils.h"
+#include "latex.h"
 
 int main(int argc, char *argv[])
 {
@@ -73,6 +74,8 @@ int main(int argc, char *argv[])
                 set_xerr_null(g[Q2_bin][Nu_bin][targ]);
                 shift_x(g[Q2_bin][Nu_bin][targ], shift_x_zh[targ]);
                 
+                g_withsyst[Q2_bin][Nu_bin][targ]->SetMarkerStyle(targ_marker[targ + 3]);
+                g_withsyst[Q2_bin][Nu_bin][targ]->SetMarkerColor(targ_colors[targ]);
                 g_withsyst[Q2_bin][Nu_bin][targ]->SetLineColor(targ_colors[targ]);
                 set_xerr_null(g_withsyst[Q2_bin][Nu_bin][targ]);
                 shift_x(g_withsyst[Q2_bin][Nu_bin][targ], shift_x_zh[targ]);
@@ -99,6 +102,22 @@ int main(int argc, char *argv[])
         }
     }
 
+    // Open txt file and print the values on it
+    std::ofstream txt_file("../output-tables/syst-q2nuzh-table.txt");
+    print_zh_results_header(txt_file);
+    for(int Q2_bin = 0 ; Q2_bin < N_Q2 ; Q2_bin++)
+    {
+        for(int Nu_bin = 0 ; Nu_bin < N_Nu ; Nu_bin++)
+        {
+            print_q2nu_bin(txt_file, Q2_bin, Nu_bin);
+            print_zh_results(txt_file,h[Q2_bin][Nu_bin][0],h[Q2_bin][Nu_bin][1],h[Q2_bin][Nu_bin][2],
+                             g_withsyst[Q2_bin][Nu_bin][0],g_withsyst[Q2_bin][Nu_bin][1],g_withsyst[Q2_bin][Nu_bin][2]);
+            print_hline(txt_file);
+        }
+    }
+    print_q2nuzh_results_end(txt_file);
+    txt_file.close();
+
     // Set a 3x3 TMultiGraph array
     TMultiGraph* mg[N_Q2][N_Nu];
 
@@ -109,8 +128,8 @@ int main(int argc, char *argv[])
             mg[Q2_bin][Nu_bin] = new TMultiGraph();
             for(int targ = 0 ; targ < N_broadening ; targ++)
             {
-                mg[Q2_bin][Nu_bin]->Add(g[Q2_bin][Nu_bin][targ], "APEZ0");
-                mg[Q2_bin][Nu_bin]->Add(g_withsyst[Q2_bin][Nu_bin][targ], "||");
+                mg[Q2_bin][Nu_bin]->Add(g[Q2_bin][Nu_bin][targ], "AP||");
+                mg[Q2_bin][Nu_bin]->Add(g_withsyst[Q2_bin][Nu_bin][targ], "APEZ0");
             }
         }
     }

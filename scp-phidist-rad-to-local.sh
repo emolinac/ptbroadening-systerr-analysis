@@ -26,7 +26,7 @@ git checkout -b corrections-analysis origin/corrections-analysis
 make
 
 cd ${mother_dir}/${syst}/${a}/ptbroadening-analysis-xf
-git checkout -b corrections-analysis-xf origin/corrections-analysis-xf
+git checkout -b corrections-analysis origin/corrections-analysis-xf
 make
 
 cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis
@@ -34,7 +34,7 @@ git checkout -b corrections-analysis origin/corrections-analysis
 make 
 
 cd ${mother_dir}/${syst}/${b}/ptbroadening-analysis-xf
-git checkout -b corrections-analysis-xf origin/corrections-analysis-xf
+git checkout -b corrections-analysis origin/corrections-analysis-xf
 make
 #
 # # Obtain broadening results

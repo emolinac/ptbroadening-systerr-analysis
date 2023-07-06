@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "TStyle.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -9,6 +10,7 @@
 #include "constants.h"
 #include "plots.h"
 #include "utils.h"
+#include "latex.h"
 
 int main(int argc, char *argv[])
 {
@@ -67,11 +69,13 @@ int main(int argc, char *argv[])
         set_xerr_null(g[targ]);
         shift_x(g[targ], shift_x_zh[targ]);
 
+        g_withsyst[targ]->SetMarkerStyle(targ_marker[targ + 3]);
+        g_withsyst[targ]->SetMarkerColor(targ_colors[targ]);
         g_withsyst[targ]->SetLineColor(targ_colors[targ]);
         set_xerr_null(g_withsyst[targ]);
         shift_x(g_withsyst[targ], shift_x_zh[targ]);
     }
-    std::cout<<"Nominal obtained"<<std::endl;
+    
     // Obtain SYSTEMATICS histos and set the systematic errors on the results plots
     for(int syst_index = 0 ; syst_index < syst_index_vector_size ; syst_index++)
     {
@@ -86,14 +90,21 @@ int main(int argc, char *argv[])
         }                
     }
 
+    // Open txt file and print the values on it
+    std::ofstream txt_file("../output-tables/syst-zh-table.txt");
+    print_zh_results_header(txt_file);
+    print_zh_results(txt_file,h[0],h[1],h[2],g_withsyst[0],g_withsyst[1],g_withsyst[2]);
+    print_zh_results_end(txt_file);
+    txt_file.close();
+
     // Set a 3x3 TMultiGraph array
     TMultiGraph* mg;
 
     mg = new TMultiGraph();
     for(int targ = 0 ; targ < N_broadening ; targ++)
     {
-        mg->Add(g[targ], "APEZ0");
-        mg->Add(g_withsyst[targ], "||");
+        mg->Add(g[targ], "AP||");
+        mg->Add(g_withsyst[targ], "APEZ0");
     }
     
     // Loop through the 3x3 TPad array

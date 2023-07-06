@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "TStyle.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -9,6 +10,7 @@
 #include "constants.h"
 #include "plots.h"
 #include "utils.h"
+#include "latex.h"
 
 int main(int argc, char *argv[])
 {
@@ -68,12 +70,20 @@ int main(int argc, char *argv[])
         set_xerr_null(g[targ],1);
         set_x_a13(g[targ],targ+3);
 
+        g_withsyst[targ]->SetMarkerStyle(targ_marker[targ + 3]);
+        g_withsyst[targ]->SetMarkerColor(targ_colors[targ]);
         g_withsyst[targ]->SetLineColor(targ_colors[targ]);
+
         set_xerr_null(g_withsyst[targ],1);
         set_x_a13(g_withsyst[targ],targ+3);
     }
 
     // Obtain SYSTEMATICS histos and set the systematic errors on the results plots
+    // Open txt file and print the values on it
+    std::ofstream txt_file("../output-tables/syst-a13-table.txt");
+    
+    print_a13_systerr_header(txt_file);
+
     for(int syst_index = 0 ; syst_index < syst_index_vector_size ; syst_index++)
     {
         for(int targ = 0 ; targ < N_broadening ; targ++)
@@ -84,7 +94,15 @@ int main(int argc, char *argv[])
             // Set the systematic errors in the results plot
             set_syst_errors(h_syst[syst_index][targ], g_withsyst[targ]);
         }                
+
+        // Print systematic error value into txt file
+        print_a13_systerr(txt_file, h_syst[syst_index][0], h_syst[syst_index][1], h_syst[syst_index][2], syst[syst_index_vector[syst_index]]);
     }
+
+    print_a13_systerr_end(txt_file);
+
+    // Close the txt file
+    txt_file.close();
 
     // Set a 3x3 TMultiGraph array
     TMultiGraph* mg;
@@ -92,8 +110,8 @@ int main(int argc, char *argv[])
     mg = new TMultiGraph();
     for(int targ = 0 ; targ < N_broadening ; targ++)
     {
-        mg->Add(g[targ], "APEZ0");
-        mg->Add(g_withsyst[targ], "||");
+        mg->Add(g[targ], "AP||");
+        mg->Add(g_withsyst[targ], "APEZ0");
     }
     
     // Loop through the 3x3 TPad array

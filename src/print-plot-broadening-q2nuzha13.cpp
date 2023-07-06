@@ -113,6 +113,8 @@ int main(int argc, char *argv[])
                 set_zh_to_a13(g_withsyst[Q2_bin][Nu_bin][0], g_withsyst[Q2_bin][Nu_bin][1], g_withsyst[Q2_bin][Nu_bin][2], ga13_withsyst[Q2_bin][Nu_bin][Zh_index], Zh_bin);
 
                 // Customize graphs
+                ga13_withsyst[Q2_bin][Nu_bin][Zh_index]->SetMarkerStyle(zh_marker[Zh_index]);
+                ga13_withsyst[Q2_bin][Nu_bin][Zh_index]->SetMarkerColor(zh_colors[Zh_index]);
                 ga13_withsyst[Q2_bin][Nu_bin][Zh_index]->SetLineColor(zh_colors[Zh_index]);
 
                 shift_x(ga13_withsyst[Q2_bin][Nu_bin][Zh_index], shift_x_a13[Zh_index], Zh_bins);
@@ -132,8 +134,8 @@ int main(int argc, char *argv[])
             mg[Q2_bin][Nu_bin] = new TMultiGraph();
             for(int Zh_index = 0 ; Zh_index < Zh_bins ; Zh_index++)
             {
-                mg[Q2_bin][Nu_bin]->Add(ga13[Q2_bin][Nu_bin][Zh_index], "APEZ0");
-                mg[Q2_bin][Nu_bin]->Add(ga13_withsyst[Q2_bin][Nu_bin][Zh_index], "||");
+                mg[Q2_bin][Nu_bin]->Add(ga13[Q2_bin][Nu_bin][Zh_index], "AP||");
+                mg[Q2_bin][Nu_bin]->Add(ga13_withsyst[Q2_bin][Nu_bin][Zh_index], "APEZ0");
             }
         }
     }
