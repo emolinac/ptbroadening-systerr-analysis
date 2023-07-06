@@ -68,17 +68,15 @@ int main(int argc, char *argv[])
                 th1f_to_tgrapherrors(h[Q2_bin][Nu_bin][targ], g_withsyst[Q2_bin][Nu_bin][targ]);
 
                 // Customize graphs
-                g[Q2_bin][Nu_bin][targ]->SetMarkerStyle(targ_marker[targ + 3]);
+                g[Q2_bin][Nu_bin][targ]->SetMarkerStyle(targ_marker_ndim[Q2_bin][targ]);
                 g[Q2_bin][Nu_bin][targ]->SetMarkerColor(targ_colors[targ]);
                 g[Q2_bin][Nu_bin][targ]->SetLineColor(targ_colors[targ]);
                 set_xerr_null(g[Q2_bin][Nu_bin][targ]);
-                shift_x(g[Q2_bin][Nu_bin][targ], shift_x_zh[targ]);
                 
-                g_withsyst[Q2_bin][Nu_bin][targ]->SetMarkerStyle(targ_marker[targ + 3]);
+                g_withsyst[Q2_bin][Nu_bin][targ]->SetMarkerStyle(targ_marker_ndim[Q2_bin][targ]);
                 g_withsyst[Q2_bin][Nu_bin][targ]->SetMarkerColor(targ_colors[targ]);
                 g_withsyst[Q2_bin][Nu_bin][targ]->SetLineColor(targ_colors[targ]);
                 set_xerr_null(g_withsyst[Q2_bin][Nu_bin][targ]);
-                shift_x(g_withsyst[Q2_bin][Nu_bin][targ], shift_x_zh[targ]);
 
                 // Slightly shift according to target
                 shift_x(g[Q2_bin][Nu_bin][targ], shift_x_zh_big[targ]);

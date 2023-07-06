@@ -76,13 +76,18 @@ const int targ_colors[N_targets]      = { 2 , 4 , 1 , 2 , 4 , 1 };
 const int dev_marker[syst_variations] = { 22 , 23 };
 const int targ_marker[N_targets]      = { 24 , 24 , 24 , 20 , 20 , 20 };
 
+const int targ_marker_ndim[N_Q2][N_broadening] = {{ 24 , 24 , 24 },
+                                                  { 26 , 26 , 26 },
+                                                  { 32 , 32 , 32 }};
+
 const int zh_colors[N_Zh]        = { 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8};
 const int zh_marker[N_Zh]        = { 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27};
 
 const double shift_x_q2[N_targets]  = { -0.1   , 0 , 0.1   , -0.1   , 0 , 0.1   };
 const double shift_x_nu[N_targets]  = { -0.1   , 0 , 0.1   , -0.1   , 0 , 0.1   };
 const double shift_x_zh[N_targets]  = { -0.015 , 0 , 0.015 , -0.015 , 0 , 0.015 };
-const double shift_x_zh_big[N_targets]  = { -0.03 , 0 , 0.03 , -0.03 , 0 , 0.03 };
+//const double shift_x_zh_big[N_targets]  = { -0.03 , 0 , 0.03 , -0.03 , 0 , 0.03 };
+const double shift_x_zh_big[N_targets]  = { -0.025 , 0 , 0.025 , -0.025 , 0 , 0.025 };
 
 const double shift_x_zh_compact[N_targets]  = { -0.008 , 0 , 0.008 , -0.008 , 0 , 0.008 };
 
