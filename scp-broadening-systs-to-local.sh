@@ -11,30 +11,30 @@ b=("accg01"  "deltaz-leq-35" "nacceptg2" "70bins"  "tof-momentuml29" "rd-vc")
 
 index=5
 
-# Create folders
-mkdir ${mother_dir}/${syst[index]}
-mkdir ${mother_dir}/${syst[index]}/${a[${index}]}
-mkdir ${mother_dir}/${syst[index]}/${b[${index}]}
-
-# Clone the repo
-git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis
-git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf
-git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis
-git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis-xf
-
-# Compile the repos
-cd ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis
-make
-
-cd ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf
-make
-
-cd ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis
-make 
-
-cd ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis-xf
-make
-
+## Create folders
+#mkdir ${mother_dir}/${syst[index]}
+#mkdir ${mother_dir}/${syst[index]}/${a[${index}]}
+#mkdir ${mother_dir}/${syst[index]}/${b[${index}]}
+#
+## Clone the repo
+#git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis
+#git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf
+#git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis
+#git clone https://github.com/emolinac/ptbroadening-analysis.git ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis-xf
+#
+## Compile the repos
+#cd ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis
+#make
+#
+#cd ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf
+#make
+#
+#cd ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis
+#make 
+#
+#cd ${mother_dir}/${syst[index]}/${b[${index}]}/ptbroadening-analysis-xf
+#make
+#
 # Obtain broadening results
 scp ${account}:${folder}/${syst[index]}/${a[${index}]}/ptbroadening-analysis/output-files/results-broadening.root    ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis/output-files/
 scp ${account}:${folder}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf/output-files/results-broadening.root ${mother_dir}/${syst[index]}/${a[${index}]}/ptbroadening-analysis-xf/output-files/

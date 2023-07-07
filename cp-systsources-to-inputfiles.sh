@@ -2,10 +2,10 @@
 
 mother_dir=$(pwd)
 
-syst_folder=("syst-acc" "syst-deltaz" "syst-naccept" "syst-pt2binning" "syst-tof" "syst-vertexcut" "syst-ct" "syst-rad")
-syst=("acc" "deltaz" "naccept" "pt2binning" "tof" "vertexcut" "ct" "rad")
-a=("accg005" "deltaz-leq-25" "nacceptg0" "70bins"  "tof-momentuml25" "hh-vc" "npt2_50" "rc-binomialerr")
-b=("accg01"  "deltaz-leq-35" "nacceptg2" "110bins" "tof-momentuml29" "rd-vc" "npt2_70" "rc-uncorrelatederr")
+syst_folder=("syst-acc" "syst-deltaz" "syst-naccept" "syst-pt2binning" "syst-tof" "syst-vertexcut" "syst-ct" "syst-rad" "syst-bgreduction")
+syst=("acc" "deltaz" "naccept" "pt2binning" "tof" "vertexcut" "ct" "rad" "bgreduction")
+a=("accg005" "deltaz-leq-25" "nacceptg0" "70bins"  "tof-momentuml25" "hh-vc" "npt2_50" "rc-binomialerr" "no-bgreduction")
+b=("accg01"  "deltaz-leq-35" "nacceptg2" "110bins" "tof-momentuml29" "rd-vc" "npt2_70" "rc-uncorrelatederr" "only-cutoff")
 
 analysis=ptbroadening-analysis-xf
 
