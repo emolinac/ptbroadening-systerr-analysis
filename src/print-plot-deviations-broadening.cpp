@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     
     // Declare graphs
     TGraphErrors* g[syst_index_vector_size][N_broadening][syst_variations];
-    
+      
     // Obtain histos and graphs
     for(int syst_index = 0 ; syst_index < syst_index_vector_size ; syst_index++)
     {
@@ -177,8 +177,6 @@ int main(int argc, char *argv[])
 
     // Free memory
     delete fin;
-
-    std::cout<<"Finished printing dev. plots!"<<std::endl;
 
     return 0;
 }

@@ -445,7 +445,7 @@ void set_dev_multigraph_properties(TMultiGraph* mg)
     mg->GetXaxis()->CenterTitle();
 
     // Y axis
-    mg->GetYaxis()->SetRangeUser(-12,12);
+    mg->GetYaxis()->SetRangeUser(-40,40/*-12,12*/);
     mg->GetYaxis()->SetTitle("Dev. from nominal (%)");
     mg->GetYaxis()->CenterTitle();
     mg->GetYaxis()->SetTitleOffset(1.4);
@@ -475,7 +475,7 @@ void get_staterr_graph(TGraphErrors* g, TGraphErrors* g_stat)
     Double_t* X    = g->GetX();
     for(int point = 0 ; point < g->GetN() ; point++)
     {
-        double errY_percentage_point = errY[point]*100./Y[point];
+        double errY_percentage_point = (Y[point] != 0 ) ? errY[point]*100./Y[point] : 0.;
         g_stat->SetPoint(point, X[point], 0);
         g_stat->SetPointError(point, X[point], errY_percentage_point);
     }

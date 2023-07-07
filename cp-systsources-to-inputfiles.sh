@@ -7,7 +7,7 @@ syst=("acc" "deltaz" "naccept" "pt2binning" "tof" "vertexcut" "ct" "rad")
 a=("accg005" "deltaz-leq-25" "nacceptg0" "70bins"  "tof-momentuml25" "hh-vc" "npt2_50" "rc-binomialerr")
 b=("accg01"  "deltaz-leq-35" "nacceptg2" "110bins" "tof-momentuml29" "rd-vc" "npt2_70" "rc-uncorrelatederr")
 
-analysis=ptbroadening-analysis
+analysis=ptbroadening-analysis-xf
 
 for (( index=0 ; index <${#syst_folder[@]} ; index++))
 do

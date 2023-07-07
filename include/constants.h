@@ -9,7 +9,7 @@
 
 // Analysis
 // Integrations of Zh at 0.2
-const int Zh_cutoff = 2;
+const int Zh_cutoff = 3;
 
 // Systematic Errors settings
 const int total_syst      = 9;
